@@ -1,8 +1,3 @@
-# Official NATS image
 FROM nats:latest
-
-# Expose default ports
-EXPOSE 4222 6222 8222
-
-# Run NATS in verbose mode (V) with debug logs (D)
-CMD ["-DV"]
+EXPOSE 4222 6222 8222 8080
+CMD ["sh", "-c", "nats-server -DV & python3 -m http.server 8080"]
