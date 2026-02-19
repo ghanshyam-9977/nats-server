@@ -1,12 +1,8 @@
-# -------------------------------------------
-#  Render NATS Server Setup
-# -------------------------------------------
-
-# Use official NATS image
+# Official NATS image
 FROM nats:latest
 
-# Expose default ports for clients, routes, and monitoring
+# Expose default ports
 EXPOSE 4222 6222 8222
 
-# Start the NATS server in verbose mode
-CMD ["nats-server", "-DV"]
+# Run NATS in verbose mode (V) with debug logs (D)
+CMD ["-DV"]
