@@ -12,5 +12,5 @@ EXPOSE 4222 6222 8222
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
     CMD wget -q --spider http://localhost:8222/healthz || exit 1
 
-# Start NATS server with monitoring enabled
-CMD ["nats-server", "-m", "8222", "--http", "8222"]
+# Start NATS with monitoring on port 8222
+CMD nats-server -DV --http 8222
