@@ -1,11 +1,16 @@
-# Base image
-FROM alpine:3.19
+# NATS Server Docker image for Render deployment
+# Using official NATS image for production-ready setup
+FROM nats:2.10
 
-# Install NATS server + Python
-RUN apk add --no-cache nats-server python3
+# Expose NATS ports
+# 4222: Client connections (main NATS port)
+# 6222: Routes for clustering
+# 8222: Monitoring/Health check endpoint
+EXPOSE 4222 6222 8222
 
-# Expose ports
-EXPOSE 4222 6222 8222 8080
+# Health check for Render
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD wget -q --spider http://localhost:8222/healthz || exit 1
 
-# Start NATS + HTTP server
-CMD sh -c "nats-server -DV & python3 -m http.server 8080"
+# Start NATS server with monitoring enabled
+CMD ["nats-server", "-m", "8222", "--http", "8222"]
