@@ -13,5 +13,5 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
     CMD wget -q --spider http://localhost:8222/healthz || exit 1
 
 # Override entrypoint and run nats-server directly with monitoring
-ENTRYPOINT ["/usr/local/bin/nats-server"]
-CMD ["-DV", "--http", "8222"]
+ENTRYPOINT []
+CMD ["/opt/nats/bin/nats-server", "-DV", "--http", "8222"]
