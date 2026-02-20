@@ -9,3 +9,6 @@ EXPOSE 4222 6222 8222 8080
 
 # Run NATS + lightweight HTTP server (for Render health check)
 CMD nats-server -DV & python3 -m http.server 8080
+    
+
+
